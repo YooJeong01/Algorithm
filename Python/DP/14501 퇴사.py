@@ -15,46 +15,46 @@
 # 그래서 그때 p값을 다 더해서 max를 구해야할듯?
 
 # (X)
-# N = int(input())
-# t = []
-# for _ in range(N) :
-## a, b = int(input().split())
-## int()는 하나의 값만 변환이 가능하다 그래서 에러나는 행
-#     a, b = map(int,input().split())
-#     t.append((a,b))
-## [0]으로 N 길이의 t를 만들고선 append를 하면 [0,0,,,,(a,b)]이렇게 되는 꼴이다
-## 만약 [0]초기화 해둘거면 t[i] = (a,b) 이런식으로 사용해야한다
+N = int(input())
+t = []
+for _ in range(N) :
+# a, b = int(input().split())
+# int()는 하나의 값만 변환이 가능하다 그래서 에러나는 행
+    a, b = map(int,input().split())
+    t.append((a,b))
+# [0]으로 N 길이의 t를 만들고선 append를 하면 [0,0,,,,(a,b)]이렇게 되는 꼴이다
+# 만약 [0]초기화 해둘거면 t[i] = (a,b) 이런식으로 사용해야한다
 # 빈리스트 하나 만들고 append 해서 길이 늘려가는게 효율적임(인덱스 바로 접근할 필요없을때)
 
 
-# arr = [0]*240
+arr = [0]*240
 
 
-# def func1(i,n,temp=[]) :
-#     for i in range(N):
-#         if t[i][0] <= n : # 상담기간이 남은기간보다 적다면
-#             temp.append(i) # 가능하니까 temp에 상담일자 넣어주고
-#             n = n - t[i][0] # 남은 기간은 방급 넣어준 상담일자의 소요시간을 뺀 기간 
-#         if n == 0 :
-#             arr.append(temp) # 남은 기간이 0이 되면 그간 쌓아둔 인덱스를 정답 배열에 넣기
-#             return 0
-#         else :
-#             func1(i+t[i][0],n,temp) # 다음 인덱스가 될 번호, 남은 기간
+def func1(i,n,temp=[]) :
+    for i in range(N):
+        if t[i][0] <= n : # 상담기간이 남은기간보다 적다면
+            temp.append(i) # 가능하니까 temp에 상담일자 넣어주고
+            n = n - t[i][0] # 남은 기간은 방급 넣어준 상담일자의 소요시간을 뺀 기간 
+        if n == 0 :
+            arr.append(temp) # 남은 기간이 0이 되면 그간 쌓아둔 인덱스를 정답 배열에 넣기
+            return 0
+        else :
+            func1(i+t[i][0],n,temp) # 다음 인덱스가 될 번호, 남은 기간
 
 
-# for k in range(N):
-#     n = N
-#     temp = [0]*N
-#     func1(k,N,temp)
+for k in range(N):
+    n = N
+    temp = [0]*N
+    func1(k,N,temp)
 
 
-# maxTotal = 0
-# for j in range(len(arr)) :  
-#     total = 0
-#     for m in range(len(arr[j])) :
-#         idx = arr[j][m]
-#         total += t[idx][1]
-#     maxTotal = max(total,maxTotal)
+maxTotal = 0
+for j in range(len(arr)) :  
+    total = 0
+    for m in range(len(arr[j])) :
+        idx = arr[j][m]
+        total += t[idx][1]
+    maxTotal = max(total,maxTotal)
 
 #----------------------------------------------------------------
 
@@ -97,7 +97,7 @@ for schedule in results:
 
 print(maxTotal)
 
-
+#--------------------------------------------------------------------------
 #### 다른 풀이(dp를 역순으로)
 
 n =int(input())
